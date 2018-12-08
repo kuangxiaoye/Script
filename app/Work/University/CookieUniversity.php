@@ -8,6 +8,8 @@
 
 namespace App\Work\University;
 
+use Illuminate\Support\Facades\Mail;
+
 
 class CookieUniversity
 {
@@ -37,40 +39,32 @@ class CookieUniversity
         ];
     }
 
-    public function bookHandle($startTime, $endTime, $cookie)
+    public function bookHandle()
     {
+        $university = new BasesUniversity();
+        $cookieBefore = fopen(__DIR__ . '/cookie.txt', 'r');
+        $cookie = fgets($cookieBefore);
         do {
             //发起最终请求的curl
             $date = date('i');
-            print_r("现在时间：" . $date . '分');
-            echo "\n";
-            $unversity = new BasesUniversity();
             if ($date == 59 || $date == 0) {
-                $imgBases = $unversity->downImg($cookie);
-                $validNumber = $unversity->getImgCode($imgBases);
-                $result = $this->toCurl($startTime, $endTime, $cookie, $validNumber);
-                print_r($result['result']);
+                $imgBases = $university->downImg($cookie);
+                $validNumber = $university->getImgCode($imgBases);
+                $this->toCurl($cookie, $validNumber);
             }
             if ($date < 58 && $date !== '00') {
                 echo "开始" . (58 - $date) . "分" . (59 - $date) * 60 . "秒的睡眠";
                 sleep((58 - $date) * 60);
                 echo "睡醒了";
             }
-            echo "睡醒了,干活了,开始do while";
         } while (true);
     }
 
-
-    public function getImg()
+    public function toCurl($cookie, $validNumber)
     {
-
-    }
-
-    public
-    function toCurl($startTime, $endTime, $cookie, $validNumber)
-    {
+        $startTime = date("Y-m-d H:00", strtotime("+7 day"));
+        $endTime = date("Y-m-d H:00", strtotime("+7 day 1 hour"));
         $curl = curl_init();
-
         curl_setopt_array($curl, array(
             CURLOPT_URL            => "http://dxyq.njust.edu.cn/ajax/orderSave.action",
             CURLOPT_RETURNTRANSFER => true,
@@ -86,14 +80,11 @@ class CookieUniversity
                 "cache-control: no-cache",
             ),
         ));
-
-        $response = curl_exec($curl);
-        $err = curl_error($curl);
-
+//        $response =
+        curl_exec($curl);
         curl_close($curl);
-        $result = json_decode($response, true);
-
-        return $result;
+//        $result = json_decode($response, true);
+//        return $result;
     }
 
 }

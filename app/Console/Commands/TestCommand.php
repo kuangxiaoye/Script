@@ -38,6 +38,6 @@ class TestCommand extends Command
     {
         //这里编写需要执行的动作
         $heihei = new \App\Http\Controllers\UniversityController();
-        $heihei->heihei();
+        $heihei->doReserve();
     }
 }
