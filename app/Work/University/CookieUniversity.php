@@ -48,9 +48,9 @@ class CookieUniversity
             //发起最终请求的curl
             $date = date('i');
 //            if ($date == 59 || $date == 0) {
-                $imgBases = $university->downImg($cookie);
-                $validNumber = $university->getImgCode($imgBases);
-                $this->toCurl($cookie, $validNumber);
+            $imgBases = $university->downImg($cookie);
+            $validNumber = $university->getImgCode($imgBases);
+            $this->toCurl($cookie, $validNumber);
 //            }
             if ($date < 58 && $date !== '00') {
                 echo "开始" . (58 - $date) . "分" . (59 - $date) * 60 . "秒的睡眠";
@@ -82,8 +82,11 @@ class CookieUniversity
             ),
         ));
         $response = curl_exec($curl);
+        if (curl_errno($curl)) {
+            $universModel->errorinfo = "errorinfo:" . $validNumber;
+        }
         curl_close($curl);
-        $universModel->req_body = "valinum:".$validNumber;
+        $universModel->req_body = "valinum:" . $validNumber;
         $universModel->content = $response;
         $universModel->save();
     }
