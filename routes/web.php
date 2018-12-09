@@ -17,4 +17,4 @@ $router->get('/', function () use ($router) {
 
 $router->get('/haha', "ChangController@haha");
 
-$router->post('/heihei', "UniversityController@heihei");
+$router->post('/heihei', "UniversityController@doReserve");

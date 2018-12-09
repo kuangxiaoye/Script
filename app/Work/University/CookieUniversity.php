@@ -47,11 +47,11 @@ class CookieUniversity
         do {
             //发起最终请求的curl
             $date = date('i');
-            if ($date == 59 || $date == 0) {
+//            if ($date == 59 || $date == 0) {
                 $imgBases = $university->downImg($cookie);
                 $validNumber = $university->getImgCode($imgBases);
                 $this->toCurl($cookie, $validNumber);
-            }
+//            }
             if ($date < 58 && $date !== '00') {
                 echo "开始" . (58 - $date) . "分" . (59 - $date) * 60 . "秒的睡眠";
                 sleep((58 - $date) * 60);
@@ -62,6 +62,7 @@ class CookieUniversity
 
     public function toCurl($cookie, $validNumber)
     {
+        $universModel = new \App\Models\University\Univers();
         $startTime = date("Y-m-d H:00", strtotime("+7 day"));
         $endTime = date("Y-m-d H:00", strtotime("+7 day 1 hour"));
         $curl = curl_init();
@@ -80,11 +81,10 @@ class CookieUniversity
                 "cache-control: no-cache",
             ),
         ));
-//        $response =
-        curl_exec($curl);
+        $response = curl_exec($curl);
         curl_close($curl);
-//        $result = json_decode($response, true);
-//        return $result;
+        $universModel->content = $response;
+        $universModel->save();
     }
 
 }
