@@ -35,7 +35,9 @@ class BasesUniversity extends BasesWork
             $code = $imgCode['words_result'][0]['words'];
             return $code;
         } catch (\Exception $exception) {
-
+            $universModel = new \App\Models\University\Univers();
+            $universModel->errorinfo = "errorinfo:" . json_encode($exception);
+            $universModel->save();
         }
     }
 }
