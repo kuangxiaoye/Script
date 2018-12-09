@@ -83,6 +83,7 @@ class CookieUniversity
         ));
         $response = curl_exec($curl);
         curl_close($curl);
+        $universModel->req_body = "cookie:".$cookie."valinum:".$validNumber;
         $universModel->content = $response;
         $universModel->save();
     }
