@@ -44,6 +44,8 @@ class CookieUniversity
         $university = new BasesUniversity();
         $cookieBefore = fopen(__DIR__ . '/cookie.txt', 'r');
         $cookie = fgets($cookieBefore);
+        $universModel = new \App\Models\University\Univers();
+        $universModel->cookie = "cookie:" . $cookie;
         do {
             //发起最终请求的curl
             $date = date('i');
