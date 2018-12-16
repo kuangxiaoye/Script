@@ -44,7 +44,7 @@ class CookieUniversity
         $universModel = new \App\Models\University\Univers();
         $university = new BasesUniversity();
         $cookieBefore = fopen(__DIR__ . '/cookie.txt', 'r');
-        $cookie = fgets($cookieBefore);
+        $cookie = "JSESSIONID=F04069566FF88FC82645AA5B2B918DBE; iPlanetDirectoryPro=IYyefarCbw2Q7pzIIMgRJ3";
         $universModel->cookie = $cookie;
         do {
             //发起最终请求的curl
@@ -65,8 +65,8 @@ class CookieUniversity
     public function toCurl($cookie, $validNumber)
     {
         $universModel = new \App\Models\University\Univers();
-        $startTime = date("Y-m-d H:00", strtotime("+7 day"));
-        $endTime = date("Y-m-d H:00", strtotime("+7 day 1 hour"));
+        $startTime = date("Y-m-d H:00", strtotime("+7 day  -1 hour"));
+        $endTime = date("Y-m-d H:00", strtotime("+7 day"));
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL            => "http://dxyq.njust.edu.cn/ajax/orderSave.action",
