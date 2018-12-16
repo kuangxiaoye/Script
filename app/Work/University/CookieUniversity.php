@@ -65,8 +65,8 @@ class CookieUniversity
     public function toCurl($cookie, $validNumber)
     {
         $universModel = new \App\Models\University\Univers();
-        $startTime = date("Y-m-d H:00", strtotime("+7 day"));
-        $endTime = date("Y-m-d H:00", strtotime("+7 day 1 hour"));
+        $startTime = date("Y-m-d H:00", strtotime("+7 day  -1 hour"));
+        $endTime = date("Y-m-d H:00", strtotime("+7 day"));
         $curl = curl_init();
         curl_setopt_array($curl, array(
             CURLOPT_URL            => "http://dxyq.njust.edu.cn/ajax/orderSave.action",
