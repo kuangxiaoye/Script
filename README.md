@@ -1,4 +1,4 @@
-# unversity
+# university
 南京理工大学预约仪器脚本
 
 脚本说明:
