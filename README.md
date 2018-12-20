@@ -24,13 +24,16 @@ Nginx
 
 4) 继续执行composer update
 
-5) 最后执行启动脚本运行 : php artisan test_command 
+5) 登录南京理工大学仪器预约官网,登录成功后F12手动抓取Cookie(很简单可以百度解决)
 
-6) 启动成功 脚本会保持执行,每小时59分钟开始预约,每小时01分结束预约
+6) 将cookie复制粘贴到项目CookieUniversity.php 文件的  $cookie = "XXX"; 用你的cookie替换掉XXX就好(XXX可能是已存在的Cookie)
 
-7) ctrl+c 退出脚本运行
+7) 最后执行启动脚本运行 : php artisan test_command 
 
-登录仪器预约网站,F12将
+8) 启动成功 脚本会保持执行,每小时59分钟开始预约,每小时01分结束预约
+
+9) ctrl+c 退出脚本运行
+
 
 ### 方便刘照丽的学姐学长学弟学妹们预约脚本...
 
