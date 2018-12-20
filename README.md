@@ -21,7 +21,7 @@ Nginx
 
 2) 将代码拷贝到wamp www运行目录
 
-3) 命令行切换到项目目录下 并执行 composer install 
+3) 命令行切换到项目目录下 并执行 composer install  (如果没有安装composer 请百度去安装好```很简单这里不写了)
 
 4) 继续执行composer update
 
