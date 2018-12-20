@@ -15,7 +15,7 @@ Nginx
 
 使用方式:
 
-本地(以window为例)
+本地(以windows系统为例)
 
 1) 下载php,mysql,apache/nginx等环境.或者直接下载wamp(window)/mamp(mac)
 
