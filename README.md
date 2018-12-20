@@ -14,7 +14,8 @@ Nginx
 验证码识别为百度AI图像识别API接口调用.
 
 使用方式:
-1.本地(以window为例)
+
+本地(以window为例)
 
 1) 下载php,mysql,apache/nginx等环境.或者直接下载wamp(window)/mamp(mac)
 
