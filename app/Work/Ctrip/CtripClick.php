@@ -53,6 +53,7 @@ class CtripClick extends BasesWork
         $rmsToken = fgets($tokenBefore);
 
         $universModel->cookie = $cookie;
+        $universModel->save();
         $query = [
             'startdate'          => $starTime,
             'depdate'            => $endTime,
