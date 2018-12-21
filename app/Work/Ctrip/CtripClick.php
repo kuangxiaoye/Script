@@ -83,6 +83,12 @@ class CtripClick extends BasesWork
         ];
 
         $curl = curl_init();
+        $user_agent = 'Safari Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_1) AppleWebKit/537.73.11 (KHTML, like Gecko) Version/7.0.1 Safari/5';
+        curl_setopt($curl, CURLOPT_USERAGENT, $user_agent);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($curl, CURLOPT_HEADER, 0);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array('X-FORWARDED-FOR:142.93.251.113	', 'CLIENT-IP:142.93.251.113'));  //构造IP
+        curl_setopt($curl, CURLOPT_REFERER, "http://www.baidu.com/");
         curl_setopt_array($curl, array(
             CURLOPT_URL            => "http://hotels.ctrip.com/DomesticBook/DomeInputNewOrderCS.aspx",
             CURLOPT_RETURNTRANSFER => true,
@@ -96,7 +102,8 @@ class CtripClick extends BasesWork
                 "Cookie: {$cookie}",
             ),
         ));
-        curl_exec($curl);
+        $res = curl_exec($curl);
+        print_r($res);
         curl_error($curl);
         curl_getinfo($curl);
     }
