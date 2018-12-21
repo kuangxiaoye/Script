@@ -45,15 +45,15 @@ class CtripClick extends BasesWork
 
     public function toClick($hotelId, $roomId, $starTime, $endTime)
     {
-        $universModel = new \App\Models\University\Univers();
+//        $universModel = new \App\Models\University\Univers();
 
         $cookieBefore = fopen(__DIR__ . '/cookie.txt', 'r');
         $tokenBefore = fopen(__DIR__ . '/token.txt', 'r');
         $cookie = fgets($cookieBefore);
         $rmsToken = fgets($tokenBefore);
 
-        $universModel->cookie = $cookie;
-        $universModel->save();
+//        $universModel->cookie = $cookie;
+//        $universModel->save();
         $query = [
             'startdate'          => $starTime,
             'depdate'            => $endTime,
