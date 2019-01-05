@@ -11,10 +11,14 @@ namespace App\Models\University;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Univers extends Model
+class Univers extends \Illuminate\Database\Eloquent\Model
 {
     protected $table = 'univers';
     protected $fillable = [
         'id',
+        'type',
+        'req_body',
+        'created_at',
+        'content',
     ];
 }
