@@ -38,6 +38,7 @@ class Bases extends BasesWork
                     $universityModel->req_body = "豹子";
                     $universityModel->content = $phoneNumber;
                     $universityModel->created_at=time();
+                    $universityModel->save();
                 }
                 if (
                     strstr($phoneNumber, '5220') ||
@@ -48,6 +49,7 @@ class Bases extends BasesWork
                     $universityModel->req_body = "个人";
                     $universityModel->content = $phoneNumber;
                     $universityModel->created_at=time();
+                    $universityModel->save();
                 }
                 $page++;
             }
