@@ -52,10 +52,9 @@ class Bases extends BasesWork
                         $universityModel->created_at=time();
                         $universityModel->save();
                     }
-                    $page++;
                 }
             }
-
+            $page++;
         } while (!empty($item['numberName']));
     }
 }
