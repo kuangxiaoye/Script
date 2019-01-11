@@ -30,8 +30,8 @@ class CtripClick extends BasesWork
                     $c = date("d");
                     $d = date("d") + 1;
                 }
-                $starttime = '2018-12-' . $c;
-                $endtime = '2018-12-' . $d;
+                $starttime = '2019-01-' . $c;
+                $endtime = '2018-01-' . $d;
                 $this->toClick($key, $item, $starttime, $endtime);
                 sleep($i / 2);
                 print_r($i . ":" . time() . "--hotelid:" . $key . "--starttime:" . $starttime . "--endtime:" . $endtime);
