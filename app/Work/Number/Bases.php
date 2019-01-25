@@ -18,43 +18,36 @@ class Bases extends BasesWork
     {
         $universityModel = new \App\Models\University\Univers();
         $numberPlatform = new NumberPlatform();
-        $page = 1;
+
         do {
-            $numInfo = $numberPlatform->getNumberCurl($page);
-            if (is_array($numInfo['data']['numbers'])) {
-                foreach ($numInfo['data']['numbers'] as $item) {
-                    $phoneNumber = $item['numberName'];
-                    if (
-                        strstr($phoneNumber, '111') ||
-                        strstr($phoneNumber, '222') ||
-                        strstr($phoneNumber, '333') ||
-                        strstr($phoneNumber, '444') ||
-                        strstr($phoneNumber, '555') ||
-                        strstr($phoneNumber, '666') ||
-                        strstr($phoneNumber, '777') ||
-                        strstr($phoneNumber, '888') ||
-                        strstr($phoneNumber, '999') ||
-                        strstr($phoneNumber, '000')) {
-                        $universityModel->type = "number";
-                        $universityModel->req_body = "豹子";
-                        $universityModel->content = $phoneNumber;
-                        $universityModel->created_at=time();
-                        $universityModel->save();
-                    }
-                    if (
-                        strstr($phoneNumber, '5220') ||
-                        strstr($phoneNumber, '5221') ||
-                        strstr($phoneNumber, '1996')
-                    ) {
-                        $universityModel->type = "number";
-                        $universityModel->req_body = "个人";
-                        $universityModel->content = $phoneNumber;
-                        $universityModel->created_at=time();
-                        $universityModel->save();
+            try {
+
+                $numInfo = $numberPlatform->getNumberCrulTenc();
+                $numInfo = array_unique($numInfo);
+                if (is_array($numInfo)) {
+                    foreach ($numInfo as $item) {
+                        $phoneNumber = $item;
+                        if (
+                            strstr($phoneNumber, '111') ||
+                            strstr($phoneNumber, '222') ||
+                            strstr($phoneNumber, '333') ||
+                            strstr($phoneNumber, '444') ||
+                            strstr($phoneNumber, '555') ||
+                            strstr($phoneNumber, '666') ||
+                            strstr($phoneNumber, '777') ||
+                            strstr($phoneNumber, '888') ||
+                            strstr($phoneNumber, '999') ||
+                            strstr($phoneNumber, '000')) {
+                            print_r($phoneNumber);
+                            $phoneNumber = null;
+                            echo "\n";
+                        }
                     }
                 }
+            } catch (\Exception $exception) {
+                print_r($exception);
             }
-            $page++;
-        } while (!empty($item['numberName']));
+
+        } while (!empty($item));
     }
 }
