@@ -16,6 +16,9 @@ class Bases extends BasesWork
     public function getUserInfo($input)
     {
         echo  123123;
-        return response()->json($input);
+        $in=[
+          '123'=>444
+        ];
+        return response()->json($in);
     }
 }

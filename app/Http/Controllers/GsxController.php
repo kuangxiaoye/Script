@@ -11,7 +11,7 @@ class GsxController extends BaseController
     public function receiveuserinfo(Request $request)
     {
         $basesWork = new \App\Work\Gsx\Bases();
-        $input = $request->all();
+        $input = $request->input();
         if (empty($input)){
             $input=[
                 '123'
