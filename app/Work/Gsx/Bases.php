@@ -18,7 +18,7 @@ class Bases extends BasesWork
         //将设备信息插入数据库 status0;
         $userInfoModel = new \App\Models\gsx\user();
 
-        $msg = $this->validUserInfo();
+        $msg = $this->validUserInfo($userInfo);
         if (!empty($msg)) {
             return $msg;
         }
@@ -64,7 +64,7 @@ class Bases extends BasesWork
         return $return;
     }
 
-    public function validUserInfo()
+    public function validUserInfo($userInfo)
     {
         $msg = '';
         if (empty($userInfo['email'])) {
