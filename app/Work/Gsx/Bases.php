@@ -27,7 +27,6 @@ class Bases extends BasesWork
             $userInfoModel->model = $userInfo['model'];
             $userInfoModel->status = 0;
             $userInfoModel->serial = $userInfo['serial'];
-            $userInfoModel->create_time = time();
             $userInfoModel->save();
         } catch (\Exception $exception) {
             echo $exception->getMessage();
