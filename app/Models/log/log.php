@@ -17,7 +17,7 @@ class log extends \Illuminate\Database\Eloquent\Model
         'id',
         'logtype',
         'content',
-        'create_time',
-        'update_time',
+        'create_at',
+        'update_at',
     ];
 }
