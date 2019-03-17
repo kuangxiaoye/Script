@@ -22,6 +22,7 @@ class GsxController extends BaseController
             'serial' => $serial,
         ];
 
+
         $result = $basesWork->handleUserInfo($userInfo);
 
         return response()->json($result);

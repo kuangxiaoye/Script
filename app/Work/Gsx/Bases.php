@@ -17,18 +17,25 @@ class Bases extends BasesWork
     {
         //将设备信息插入数据库 status0;
         $userInfoModel = new \App\Models\gsx\user();
-
-        $msg = $this->validUserInfo($userInfo);
-        if (!empty($msg)) {
-            return $msg;
+        try {
+            $msg = $this->validUserInfo($userInfo);
+            if (!empty($msg)) {
+                return $msg;
+            }
+            $userInfoModel->email = $userInfo['email'];
+            $userInfoModel->tel = $userInfo['tel'];
+            $userInfoModel->model = $userInfo['model'];
+            $userInfoModel->status = 0;
+            $userInfoModel->serial = $userInfo['serial'];
+            $userInfoModel->create_time = time();
+            $userInfoModel->save();
+        } catch (\Exception $exception) {
+            echo $exception->getMessage();
+            $logModel = new \App\Models\log\log();
+            $logModel->logtype = "exception";
+            $logModel->content = $exception->getMessage();
+            $logModel->save();
         }
-        $userInfoModel->email = $userInfo['email'];
-        $userInfoModel->tel = $userInfo['tel'];
-        $userInfoModel->model = $userInfo['model'];
-        $userInfoModel->status = 0;
-        $userInfoModel->serial = $userInfo['serial'];
-        $userInfoModel->create_time = time();
-        $userInfoModel->save();
 
         return [
             'msg'  => '提交成功,请耐心等待.您也可以通过邮箱地址实时验机鉴定过程哦',
