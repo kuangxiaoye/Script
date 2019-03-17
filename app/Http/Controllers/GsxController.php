@@ -9,32 +9,6 @@ use Illuminate\Http\Request;
 class GsxController extends BaseController
 {
     /**
-     * 接收有赞消息推送
-     * @param Request $request
-     */
-    public function getpush(Request $request)
-    {
-        $logModel = new \App\Models\log\log();
-        $pushInfo = $request->all();
-        $logModel->logtype = 'push';
-        $logModel->content = json_encode($pushInfo);
-        $logModel->save();
-        print_r($pushInfo);
-        echo "\n";
-    }
-
-    /**
-     * 获取支付二维码
-     */
-    public function getqrcode()
-    {
-        $payServer = new \App\Work\Gsx\Pay();
-        $qrCodeMsg = $payServer->qrcodeCreate();
-
-        return response()->json($qrCodeMsg);
-    }
-
-    /**
      * 用户信息保存
      * @param Request $request
      * @return \Illuminate\Http\JsonResponse
@@ -87,4 +61,40 @@ class GsxController extends BaseController
 
         return response()->json($schedule);
     }
+
+//    /**
+//    //     * 接收有赞消息推送
+//    //     * @param Request $request
+//    //     */
+//    public function getpush(Request $request)
+//    {
+//        $logModel = new \App\Models\log\log();
+//        $pushInfo = $request->all();
+//        $logModel->logtype = 'push';
+//        $logModel->content = json_encode($pushInfo);
+//        $logModel->save();
+//        print_r($pushInfo);
+//        echo "\n";
+//    }
+//
+//    /**
+//     * 查询二维码支付状态
+//     */
+//    public function getpaystatus()
+//    {
+//        $payServer = new \App\Work\Gsx\Pay();
+//        $payServer->getPayStatus();
+//    }
+//
+//    /**
+//     * 获取支付二维码
+//     */
+//    public function getqrcode()
+//    {
+//        $payServer = new \App\Work\Gsx\Pay();
+//        $qrCodeMsg = $payServer->qrcodeCreate();
+//
+//        return response()->json($qrCodeMsg);
+//    }
+
 }

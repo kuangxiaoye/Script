@@ -37,4 +37,24 @@ class Pay extends BasesWork
         return $payQrcode;
     }
 
+    public function getPayStatus()
+    {
+        $tokenServer = new GetToken();
+        $token = $tokenServer->getToken();
+        $client = new \YZTokenClient($token);
+        $method = 'youzan.trades.qr.get'; //要调用的api名称
+        $api_version = '3.0.0'; //要调用的api版本号
+        $my_params = [
+            'qr_id'     => '11792508',
+            'page_size' => '10000',
+            'page_no'   => '1',
+        ];
+
+        $my_files = [
+        ];
+        $payResultInfo = $client->get($method, $api_version, $my_params, $my_files);
+
+        return $payResultInfo;
+    }
+
 }

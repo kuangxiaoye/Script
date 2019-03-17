@@ -23,6 +23,8 @@ $router->post('/userinfo', "GsxController@receiveuserinfo");
 
 $router->get('/getqrcode', "GsxController@getqrcode");
 
+$router->get('/getpaystatus', "GsxController@getpaystatus");
+
 $router->post('/schedule', "GsxController@searchschedule");
 
 $router->get('/getpush', "GsxController@getpush");
