@@ -12,11 +12,13 @@ class GsxController extends BaseController
     {
         $basesWork = new \App\Work\Gsx\Bases();
         $input = $request->input();
-        if (empty($input)){
-            $input=[
-                '123'
+        if (empty($input)) {
+            $input = [
+                '123',
             ];
         }
         $basesWork->getUserInfo($input);
+
+        return response()->json($input);
     }
 }
