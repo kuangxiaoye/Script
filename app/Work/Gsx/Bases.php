@@ -15,6 +15,7 @@ class Bases extends BasesWork
 {
     public function getUserInfo($input)
     {
+        echo  123123;
         return response()->json($input);
     }
 }
