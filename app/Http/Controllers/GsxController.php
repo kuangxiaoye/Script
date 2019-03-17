@@ -11,14 +11,18 @@ class GsxController extends BaseController
     public function receiveuserinfo(Request $request)
     {
         $basesWork = new \App\Work\Gsx\Bases();
-        $input = $request->input();
-        if (empty($input)) {
-            return response()->json([
-                'msg'  => '你还什么都没填呢..',
-                'code' => 40001,
-            ]);
-        }
-        $result = $basesWork->handleUserInfo($input);
+        $email = $request->input(['email']);
+        $model = $request->input(['model']);
+        $tel = $request->input(['tel']);
+        $serial = $request->input(['serial']);
+        $userInfo = [
+            'email'  => $email,
+            'model'  => $model,
+            'tel'    => $tel,
+            'serial' => $serial,
+        ];
+
+        $result = $basesWork->handleUserInfo($userInfo);
 
         return response()->json($result);
     }

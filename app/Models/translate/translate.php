@@ -6,7 +6,7 @@
  * Time: 8:42 PM
  */
 
-namespace App\Models\University;
+namespace App\Models\translate;
 
 
 use Illuminate\Database\Eloquent\Model;

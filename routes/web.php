@@ -20,3 +20,5 @@ $router->get('/haha', "ChangController@haha");
 $router->post('/heihei', "UniversityController@doReserve");
 
 $router->post('/userinfo', "GsxController@receiveuserinfo");
+
+$router->post('/schedule', "GsxController@searchschedule");
