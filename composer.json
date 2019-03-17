@@ -16,7 +16,8 @@
     "qcloudsms/qcloudsms_php": "0.1.*",
     "illuminate/mail": "^5.5",
     "guzzlehttp/guzzle": "^6.3",
-    "jeremeamia/SuperClosure": "^2.4"
+    "jeremeamia/SuperClosure": "^2.4",
+    "workerman/workerman": "^3.5"
   },
   "require-dev": {
     "fzaninotto/faker": "~1.4",
