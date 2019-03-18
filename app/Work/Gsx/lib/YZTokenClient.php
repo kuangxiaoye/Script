@@ -5,7 +5,7 @@ require_once __DIR__ . '/YZHttpClient.php';
 class YZTokenClient {
     private static $request_url = 'https://open.youzan.com/api/oauthentry/';
 
-    public function __construct($access_token) {
+    public function  __construct($access_token) {
         if ('' == $access_token) throw new Exception('access_token不能为空');
         $this->access_token = $access_token;
     }
