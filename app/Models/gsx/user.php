@@ -8,8 +8,6 @@
 
 namespace App\Models\gsx;
 
-use Illuminate\Database\Eloquent\Model;
-
 class user extends \Illuminate\Database\Eloquent\Model
 {
     protected $table = 'user';
@@ -18,6 +16,12 @@ class user extends \Illuminate\Database\Eloquent\Model
         'email',
         'model',
         'tel',
+        'serial',
+        'imei',
+        'iccid',
+        'ordernum',
+        'payinfo',
+        'payway',
         'status',
         'create_at',
         'update_at',

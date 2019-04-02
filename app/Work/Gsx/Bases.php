@@ -9,7 +9,9 @@
 namespace App\Work\Gsx;
 
 
+use App\User;
 use App\Work\BasesWork;
+use App\Work\Pay\KuaiFaKa;
 
 class Bases extends BasesWork
 {
@@ -27,6 +29,7 @@ class Bases extends BasesWork
             if (!empty($msg)) {
                 return $msg;
             }
+            //TODO 这里要验证重复
             $userInfoModel->email = $userInfo['email'];
             $userInfoModel->tel = $userInfo['tel'];
             $userInfoModel->model = $userInfo['model'];
@@ -34,7 +37,6 @@ class Bases extends BasesWork
             $userInfoModel->serial = $userInfo['serial'];
             $userInfoModel->save();
         } catch (\Exception $exception) {
-            echo $exception->getMessage();
             $logModel = new \App\Models\log\log();
             $logModel->logtype = "exception";
             $logModel->content = $exception->getMessage();
@@ -59,19 +61,19 @@ class Bases extends BasesWork
             case 0:
                 $return = [
                     'msg'  => '努力验机中..嘿咻..',
-                    'code' => 40004,
+                    'code' => 40011,
                 ];
                 break;
             case 1:
                 $return = [
                     'msg'  => '验机成功啦,为了您的信息安全,请您登录邮箱查看Gsx鉴定结果呢!',
-                    'code' => 40004,
+                    'code' => 40010,
                 ];
                 break;
             default:
                 $return = [
                     'msg'  => '啊呀,进度失常了呢,好怕会不会翻车,请联系客服处理呢',
-                    'code' => 40004,
+                    'code' => 40009,
                 ];
                 break;
         }
@@ -108,10 +110,93 @@ class Bases extends BasesWork
         if (empty($userInfo['serial'])) {
             $msg = [
                 'msg'  => '请填写您的设备序列号,不然无法帮您验机.',
-                'code' => 40007,
+                'code' => 40008,
             ];
         }
 
         return $msg;
+    }
+
+    public function qrcodeLogic($serial, $email, $payWay)
+    {
+        //创建订单号
+        $orderNumber = $this->getOrderNum();
+        if (empty($orderNumber)) {
+            return [
+                'msg'  => '订单号生成失败',
+                'code' => 50009,
+            ];
+        }
+        //构建订单
+        $result = $this->buildOrder($orderNumber);
+        if ($result['msg'] !== 'success') {
+            return [
+                'msg'  => '订单构建失败',
+                'code' => 50010,
+            ];
+        }
+        if ($payWay == '1') {
+            $payInfo = $this->generateWxImg($orderNumber);
+        } else {
+            $payInfo = $this->generateAliUrl($orderNumber);
+        }
+
+        $userInfoModel = new \App\Models\gsx\user();
+        try {
+            $userInfoModel::where([
+                'email'  => $email,
+                'serial' => $serial,
+            ])->update([
+                'ordernum' => $orderNumber,
+                'payway'   => $payWay,
+                'payinfo'  => json_encode($payInfo),
+            ]);
+        } catch (\Exception $exception) {
+            print_r($exception);
+        }
+
+        return $payInfo;
+    }
+
+    public function getOrderNum()
+    {
+        $paySerive = new KuaiFaKa();
+        $orderNumInfo = $paySerive->createOrderNum();
+        return $orderNumInfo['data'];
+    }
+
+    public function generateWxImg($orderNumber)
+    {
+        $kuaifaka = new KuaiFaKa();
+        $data = $kuaifaka->getWxPayImg($orderNumber);
+
+        return $data;
+    }
+
+    public function generateAliUrl($orderNumber)
+    {
+        $kuaifaka = new KuaiFaKa();
+        $data = $kuaifaka->getAliPayUrl($orderNumber);
+
+        return $data;
+    }
+
+    public function buildOrder($orderNumber)
+    {
+        $kuaifaka = new KuaiFaKa();
+        $data = $kuaifaka->buildOrder($orderNumber);
+
+        return [
+            'data' => $data,
+            'msg'  => 'success',
+        ];
+    }
+
+    public function getOrderStatus($orderNumber)
+    {
+        $kuaifaka = new KuaiFaKa();
+        $res = $kuaifaka->getOrderStatus($orderNumber);
+
+        return $res;
     }
 }

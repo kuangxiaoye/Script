@@ -26,7 +26,6 @@ class GsxController extends BaseController
             'tel'    => $tel,
             'serial' => $serial,
         ];
-
         $result = $basesWork->handleUserInfo($userInfo);
 
         return response()->json($result);
@@ -48,53 +47,44 @@ class GsxController extends BaseController
                 'msg' => '请填写邮箱信息',
             ]);
         }
-
-        //入库查询是否存在该email
+        //入库查询是否存在该email,serial(序列号)
         $emailSql = '';
         if (empty($emailSql)) {
             return response()->json([
                 'msg' => '该邮箱不存在',
             ]);
         }
-
         $schedule = $basesWork->handleSchedule();
 
         return response()->json($schedule);
     }
 
-//    /**
-//    //     * 接收有赞消息推送
-//    //     * @param Request $request
-//    //     */
-//    public function getpush(Request $request)
-//    {
-//        $logModel = new \App\Models\log\log();
-//        $pushInfo = $request->all();
-//        $logModel->logtype = 'push';
-//        $logModel->content = json_encode($pushInfo);
-//        $logModel->save();
-//        print_r($pushInfo);
-//        echo "\n";
-//    }
-//
-//    /**
-//     * 查询二维码支付状态
-//     */
-//    public function getpaystatus()
-//    {
-//        $payServer = new \App\Work\Gsx\Pay();
-//        $payServer->getPayStatus();
-//    }
-//
-//    /**
-//     * 获取支付二维码
-//     */
-//    public function getqrcode()
-//    {
-//        $payServer = new \App\Work\Gsx\Pay();
-//        $qrCodeMsg = $payServer->qrcodeCreate();
-//
-//        return response()->json($qrCodeMsg);
-//    }
+    public function getqrcode(Request $request)
+    {
+        $basesWork = new \App\Work\Gsx\Bases();
+        $email = $request->input(['email']);
+        $payWay = $request->input(['payway']);
+        $serial = $request->input(['serial']);
+        $payInfo = $basesWork->qrcodeLogic($serial, $email, $payWay);
+
+        return response()->json([
+            'payinfo' => $payInfo,
+        ]);
+    }
+
+    /**
+     * 查询支付状态
+     * @param Request $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function getorderstatus(Request $request)
+    {
+        $orderNumber = $request->input(['ordernum']);
+        $basesWork = new \App\Work\Gsx\Bases();
+        $result = $basesWork->getOrderStatus($orderNumber);
+        return response()->json([
+            'status' => $result,
+        ]);
+    }
 
 }
