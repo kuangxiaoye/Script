@@ -17,8 +17,8 @@ class CtripClick extends BasesWork
     public function clickHandle()
     {
         $kz = [
-            11301431 => 97395089,
-            8668051  => 172229832,
+            6146989 => 47126229,
+            7454972  => 168309059,
         ];
         $c = date("d");
         $d = date("d") + 1;

@@ -15,6 +15,8 @@ $router->get('/', function () use ($router) {
     return $router->app->version();
 });
 
+// gsx查询
+
 $router->get('/haha', "ChangController@haha");
 
 $router->post('/heihei', "UniversityController@doReserve");
@@ -28,3 +30,9 @@ $router->post('/getorderstatus', "GsxController@getorderstatus");
 $router->post('/schedule', "GsxController@searchschedule");
 
 $router->get('/getpush', "GsxController@getpush");
+
+// 云盘雷达
+
+$router->post('/getcookie', "YunPanController@refreshCookie");
+
+$router->post('/refreshcookie', "YunPanController@getCookie");
